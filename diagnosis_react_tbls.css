@@ -1,0 +1,63 @@
+
+.topn-ip-rtbl,
+.topn-ed-rtbl,
+.childhood-infections-ip-rtbl,
+.childhood-infections-ed-rtbl {
+  margin: 0;
+  width: 700px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 8pt;
+  line-height: 1;
+}
+
+.reactable.html-widget {
+  margin-bottom: 12px;
+}
+
+.rtbl-title {
+  margin: 10px 0;
+  font-size: 12pt;
+}
+
+.rtbl-title h2 {
+  font-size: 14pt;
+  font-weight: 600;
+}
+
+.rtbl-src {
+  font-size: 8pt;
+}
+
+.rt-td-inner {
+  padding: 4px;
+}
+
+.header,
+.group-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.header {
+  border-bottom: 2px solid #555;
+  font-size: 9pt;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.bar-cell {
+  display: flex;
+  align-items: center;
+}
+
+.bar-chart {
+  flex-grow: 1;
+  margin-left: 6px;
+  height: 10pt;
+}
+
+.bar {
+  height: 100%;
+}
+

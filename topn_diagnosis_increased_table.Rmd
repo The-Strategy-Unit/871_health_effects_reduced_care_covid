@@ -1,0 +1,131 @@
+---
+title: "Diagnoses that increased most table using reactable"
+author: '[Paul Seamer](mailto:paulseamer@nhs.net)'
+date: "`r lubridate::today()`"
+output:
+  html_document:
+    keep_md: FALSE
+    css: "diagnosis_react_tbls.css"
+---
+
+```{r, setup, include=FALSE}
+# packages
+library("tidyverse")
+library("here")
+library("reactable")
+library("htmltools")
+# lubridate via namespace
+
+# functions
+source(here("R", "fx_react_tbl.R"))
+```
+
+```{r, read, include=FALSE}
+chg_ed <- readRDS(here("data", "spc_ed_diags_all_high.rds"))
+chg_ip <- readRDS(here("data", "spc_ip_diags_all_high.rds"))
+
+ed_dat <- chg_ed |>
+  select(diagnm, p2, u) |>
+  arrange(desc(u))
+
+ed_dat <- ed_dat |> slice(1:20)
+
+ip_dat <- chg_ip |> 
+  select(diagnm, p2, u) |>
+  arrange(desc(u)) |> 
+  slice(1:22) |>  # account for U0 codes
+  mutate(diagnm = case_when(
+    str_detect(diagnm, "^U07") ~ "Emergency use ICD codes for COVID-19",
+    is.na(diagnm) ~ "NA - diagnosis code missing",
+    TRUE ~ diagnm
+  )) |> 
+  group_by(diagnm) |> 
+  summarise(p2 = sum(p2), u = max(u)) |> 
+  mutate(u = ifelse(is.infinite(u), 999, u)) |> 
+  arrange(desc(u))
+
+# abbreviate diagnoses
+short_nms <- tribble(
+  ~ diagcd, ~shortnm,
+  "Z115", "Special screening exam. viral diseases",
+  "J210", "Acute bronchiolitis due to RSV",
+  "J121", "RSV pneumonia",
+  "J211", "Acute bronchiolitis hu. metapneumovirus",
+  "B348", "Other viral infections unspec. site",
+  "J128", "Other viral pneumonia",
+  "J123", "Human metapneumovirus pneumonia",
+  "G444", "Drug-induced headache, nec.",
+  "F509", "Eating disorder, unspec.",
+  "B341", "Entovirus infection, unspec. site",
+  "I132", "Hypertensive heart & renal dis. w/failure",
+  "P288", "Other respiratory conditions of newborn",
+  "J988", "Other respiratory disorders",
+  "J218", "Acute bronchiolitis other organisms",
+  "J219", "Acute bronchiolitis, unspec.",
+  "J159", "Bacterial pneumonia, unspec.",
+  "Q431", "Hirschsprung's disease",
+  "J129", "Viral pneumonia, unspec."
+)
+
+ip_dat <- ip_dat |> 
+  mutate(
+    diagcd = str_extract(diagnm, "^[A-Z][[:digit:]]{3}"),
+    diagnm = str_remove(diagnm, "[A-Z][[:digit:]]{3}:[[:space:]]")
+    ) |> 
+  left_join(short_nms, by = "diagcd") |> 
+  mutate(shortnm = ifelse(is.na(shortnm), diagnm, shortnm)) |> 
+  select(shortnm, p2, u) |> 
+  rename(diagnm = shortnm)
+```
+
+```{r, react-tbl-ip, echo=FALSE}
+formals(scale_value)$limit <- 100
+formals(scale_value)$omit  <- 2
+tbl <- build_react_tbl(ip_dat, units = "Admis", colwidth = c(240, 200, 200))
+
+div(
+  class = "topn-ip-rtbl",
+  div(
+    class = "rtbl-title",
+    h2("Inpatient diagnoses with the biggest increases"),
+    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were much more common than in 2019"
+  ),
+  htmlwidgets::appendContent(
+    tbl,
+    htmltools::tags$span(
+      class = "rtbl-src",
+      p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
+    )
+  )
+)
+```
+
+```{r, react-tbl-ed, echo=FALSE}
+formals(scale_value)$limit <- 10
+formals(scale_value)$omit  <- 1
+tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
+
+div(
+  class = "topn-ed-rtbl",
+  div(
+    class = "rtbl-title",
+    h2("ED diagnoses with the biggest increases"),
+    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were much more common than in 2019"
+  ),
+  htmlwidgets::appendContent(
+    tbl,
+    htmltools::tags$span(
+      class = "rtbl-src",
+      p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
+    )
+  )
+)
+```
+
+```{r, google-fonts, echo=FALSE}
+# add Google fonts to the page
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css?family=Work+Sans:400,700|Fira+Mono&display=fallback",
+  rel = "stylesheet"
+)
+```
