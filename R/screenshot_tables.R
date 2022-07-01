@@ -13,14 +13,14 @@ library("webshot2")
 
 
 
-# 1 webshots----
+# screenshots----
 webshot(c(
   here("./", "common_infections_of_childhood_table.html"),
   here("./", "common_infections_of_childhood_table.html")
   ),
   selector = list(
-    ".childhood-infections-ip-tbl",
-    ".childhood-infections-ed-tbl"
+    ".childhood-infections-ip-rtbl",
+    ".childhood-infections-ed-rtbl"
     ),
   zoom = 2,
   expand = c(0, 12, 0, -12),
@@ -30,34 +30,19 @@ webshot(c(
     )
 )
 
-
-
-
-
-webshot(
-  "diagnosis_increased_tables.html",
-  selector = ".diag-tbl-ed",
+webshot(c(
+  here("./", "topn_diagnosis_increased_table.html"),
+  here("./", "topn_diagnosis_increased_table.html")
+  ),
+  selector = list(
+  ".topn-ip-rtbl",
+  ".topn-ed-rtbl"
+  ),
   zoom = 2,
-  expand = c(0, 0, 0, -10),
-  file = here("figures", "diag_tbl_ed_increased.png")
+  expand = c(0, 12, 0, -12),
+  file = c(
+    here("figures", "topn_diagnosis_increased_ip_tbl.png"),
+    here("figures", "topn_diagnosis_increased_ed_tbl.png")
+    )
 )
-
-webshot(
-  "diagnosis_increased_tables.html",
-  selector = ".diag-tbl-ip",
-  zoom = 2,
-  expand = c(0, 0, 0, -10),
-  file = here("figures", "diag_tbl_ip_increased.png")
-)
-
-webshot(
-  "group_profile_table.html",
-  selector = ".profile",
-  zoom = 2,
-  expand = c(0, 0, 0, 0),
-  file = here("figures", "profile_groups_table.png")
-)
-
-
-
 
