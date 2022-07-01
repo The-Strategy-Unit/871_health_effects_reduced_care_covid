@@ -42,3 +42,4 @@ vignettes/*.pdf
 /admin/
 /bookshelf/
 /raw_data/
+/outputs/
