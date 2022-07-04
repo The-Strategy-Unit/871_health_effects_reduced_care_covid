@@ -101,12 +101,12 @@ trend_plots <- map(gen_prof_plots, ~ build_plot4(.))
 # 6 save----
 for (i in 1:length(stitched_plots_ls)) {
   nm <- str_replace_all(str_to_lower(names(stitched_plots_ls[i])), "[[:space:]]", "_")
-  ggsave(here("figures", paste0("profile_", nm, ".png")), stitched_plots_ls[[i]], width = 160, height = 60, units = c("mm"))
+  ggsave(here("figures", paste0("profile_", nm, ".png")), stitched_plots_ls[[i]], width = 158, height = 60, units = c("mm"))
 }
 
 for (i in 1:length(trend_plots)) {
   nm <- str_replace_all(str_to_lower(names(trend_plots[i])), "[[:space:]]", "_")
-  ggsave(here("figures", paste0("trend_", nm, ".png")), trend_plots[[i]], width = 120, height = 80, units = c("mm"))
+  ggsave(here("figures", paste0("trend_", nm, ".png")), trend_plots[[i]], width = 144, height = 100, units = c("mm"))
 }
 
 
