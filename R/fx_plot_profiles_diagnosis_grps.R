@@ -147,7 +147,7 @@ build_plot4 <- function(dat) {
               alpha = .4, color = NA,
               show.legend = FALSE, inherit.aes = FALSE
     ) +
-    geom_line(size = .7, show.legend = FALSE, color = pal[3]) +
+    geom_line(size = .7, show.legend = FALSE, color = pal[2]) +
     scale_x_discrete(name = NULL, breaks = ts_breaks, labels = ts_labels, expand = c(0, 0)) +
     scale_y_continuous(name = NULL, expand = c(0, 0)) +
     scale_fill_manual(values = pal[c(7, 8)]) +

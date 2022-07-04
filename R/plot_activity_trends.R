@@ -162,7 +162,7 @@ ed_blocks <- ed_dat |>
             hjust = 0, vjust = .5) +
   scale_x_discrete(name = NULL, breaks = ts_breaks, labels = ts_labels, expand = c(0, 0)) +
   scale_y_continuous(name = NULL, limits = c(0, 2.6e5), labels = label_comma(scale = .001), expand = c(0, 0)) +
-  scale_color_manual(values = pal[c(1, 3)]) +
+  scale_color_manual(values = pal[c(1, 2)]) +
   scale_fill_manual(values = pal[c(7, 8)]) +
   labs(
     caption = "Source: SUS+, National Commissioning Data Repository.",
@@ -233,7 +233,7 @@ ip_blocks <- ip_dat |>
     alpha = .4, color = NA,
     inherit.aes = FALSE, show.legend = FALSE
   ) +
-  geom_line(size = .7, show.legend = FALSE, color = pal[3]) +
+  geom_line(size = .7, show.legend = FALSE, color = pal[2]) +
   scale_x_discrete(name = NULL, breaks = ts_breaks, labels = ts_labels, expand = c(0, 0)) +
   scale_y_continuous(name = NULL, limits = c(.5e5, 1.5e5), labels = label_comma(scale = .001), expand = c(0, 0)) +
   scale_fill_manual(values = pal[c(7, 8)]) +
@@ -337,7 +337,7 @@ ed_ts <- ts_dat |>
             hjust = 0, vjust = .5) +
   scale_x_continuous(name = NULL, expand = c(0, 1)) +
   scale_y_continuous(name = NULL, limits = c(.5e5, 2.2e5), expand = c(0, 0), labels = label_comma(scale = .001)) +
-  scale_color_manual(values = pal[c(5:8)]) +
+  scale_color_manual(values = pal[c(3,7,4,8)]) +
   labs(subtitle = "Weekly ED visits (thousands)")
 
 ed_compare <- ed_bar + theme(plot.margin = margin(r = 5, unit = "mm")) + ed_ts
