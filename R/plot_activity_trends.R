@@ -98,7 +98,7 @@ trend_ip <- ip_dat |>
 trend_2 <- trend_ed + theme(plot.margin = margin(r = 4, unit = "mm")) + trend_ip
 trend_2 <- trend_2 + plot_annotation(
   caption = "Source: SUS+, National Commissioning Data Repository.",
-  title = "The COVID-19 pandemic caused major disruption to emergency\nhealthcare services"
+  title = "Figure 1.1 The COVID-19 pandemic caused major disruption to\nemergency healthcare services"
 )
 
 ggsave(here("figures", "trend_visits_and_admis.png"), trend_2, width = 144, height = 100, units = c("mm"))

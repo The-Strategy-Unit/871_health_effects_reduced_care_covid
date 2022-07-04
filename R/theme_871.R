@@ -8,7 +8,7 @@
 
 
 # theme for project 871 -------------------------------------------------------
-theme_871 <- function(base_size = 10, base_family = "Work Sans") {
+theme_871 <- function(base_size = 10, base_family = "Fira Sans") {
   
   half_line <- base_size / 2
   
@@ -94,7 +94,7 @@ theme_871 <- function(base_size = 10, base_family = "Work Sans") {
     # plot
     , plot.background = element_blank()
     # , plot.background = element_rect(fill = "#f8f8f7", colour = NA)
-    , plot.title =      element_text(size = base_size * 1.3, hjust = 0, vjust = 1, margin = margin(b = half_line * 2), lineheight = 1.2)
+    , plot.title =      element_text(family = "Fira Sans Medium", size = base_size * 1.3, hjust = 0, vjust = 1, margin = margin(b = half_line * 2), lineheight = 1.2)
     , plot.title.position = "plot"
     , plot.subtitle =   element_text(colour = "#686f73", size = base_size, hjust = 0, vjust = 1, margin = margin(b = half_line * 2))
     , plot.caption =    element_text(size = base_size, hjust = 0, vjust = 1, margin = margin(t = half_line * 2), colour = "#686f73")

@@ -16,13 +16,8 @@ build_plot1 <- function(dat) {
     scale_fill_manual(values = pal[c(7, 8)]) + 
     coord_flip() + 
     labs(subtitle = "Emergency admissions (thousands), weeks 25\u201343") +
-    theme_871(
-      base_size = 8,
-    ) +
-    theme(
-      panel.grid.major.y = element_blank()
-    )
-  
+    theme_871(base_size = 8) +
+    theme(panel.grid.major.y = element_blank())
 }
 
 # bar plot visits by year
@@ -43,13 +38,8 @@ build_plot2 <- function(dat, grpnm = "Common infections of childhood") {
     scale_fill_manual(values = pal[c(7, 8)]) + 
     coord_flip() + 
     labs(subtitle = "ED visits (thousands), weeks 25\u201343") +
-    theme_871(
-      base_size = 8,
-    ) +
-    theme(
-      panel.grid.major.y = element_blank()
-    )
-  
+    theme_871(base_size = 8) +
+    theme(panel.grid.major.y = element_blank())
 }
 
 # facet grouped bar plot admissions by year, by age & sex
@@ -77,13 +67,8 @@ build_plot3 <- function(dat) {
     annotate("text", x = 4.25, y = .8 * max(plot_dat$n), label = "male", color = pal[5], size = 8 / 2.8, hjust = 0) +
     annotate("text", x = 3.75, y = .8 * max(plot_dat$n), label = "female", color = pal[4], size = 8 / 2.8, hjust = 0) +
     labs(subtitle = "Emergency admissions by age & sex (thousands)") +
-    theme_871(
-      base_size = 8,
-    ) +
-    theme(
-      strip.background = element_rect(fill = NA)
-    )
-  
+    theme_871(base_size = 8) +
+    theme(strip.background = element_rect(fill = NA))
 }
 
 # stitch 3 plots above together
@@ -106,11 +91,8 @@ stitch_plots <- function(
     plot_annotation(
       caption = "Source(s): Strategy Unit analysis; SUS+, National Commissioning Data Repository.",
       title = {{title}},
-      theme = theme(
-        plot.caption = element_text(size = 8),
-        plot.title = element_text(size = 8 * 1.3)
+      theme = theme_871(base_size = 7)
       )
-    )
 } 
 
 # this method of composing the layout only creates 2 patch areas
@@ -154,9 +136,6 @@ build_plot4 <- function(dat) {
     labs(
       caption = "Source(s): Strategy Unit analysis; SUS+, National Commissioning Data Repository.",
       subtitle = "Weekly emergency admissions",
-      title = "The coronavirus pandemic distorted the normal seasonal pattern for\nmany common infections of childhood") +
-    theme_871(
-      base_size = 8,
-    )
+      title = "The coronavirus pandemic distorted the normal seasonal pattern\nfor many common infections of childhood")
 }
 
