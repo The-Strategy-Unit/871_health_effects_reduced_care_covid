@@ -13,7 +13,6 @@ library("scales")
 library("directlabels")
 library("MetBrewer")
 library("patchwork")
-library("showtext")
 
 # fonts----
 library("ragg")
