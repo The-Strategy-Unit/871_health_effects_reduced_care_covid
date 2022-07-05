@@ -88,7 +88,7 @@ div(
   div(
     class = "rtbl-title",
     h2("Inpatient diagnoses with the biggest increases"),
-    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were much more common than in 2019"
+    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019"
   ),
   htmlwidgets::appendContent(
     tbl,
@@ -110,7 +110,7 @@ div(
   div(
     class = "rtbl-title",
     h2("ED diagnoses with the biggest increases"),
-    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were much more common than in 2019"
+    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019"
   ),
   htmlwidgets::appendContent(
     tbl,
