@@ -64,8 +64,8 @@ build_plot3 <- function(dat) {
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, labels = label_comma(scale = .001)) +
     scale_fill_manual(values = pal[c(4,5)]) +
-    annotate("text", x = 4.25, y = .8 * max(plot_dat$n), label = "male", color = pal[5], size = 8 / 2.8, hjust = 0) +
-    annotate("text", x = 3.75, y = .8 * max(plot_dat$n), label = "female", color = pal[4], size = 8 / 2.8, hjust = 0) +
+    annotate("text", x = 4.25, y = .7 * max(plot_dat$n), label = "male", color = pal[5], size = 8 / 2.8, hjust = 0) +
+    annotate("text", x = 3.75, y = .7 * max(plot_dat$n), label = "female", color = pal[4], size = 8 / 2.8, hjust = 0) +
     labs(subtitle = "Emergency admissions by age & sex (thousands)") +
     theme_871(base_size = 8) +
     theme(strip.background = element_rect(fill = NA))
@@ -76,7 +76,7 @@ build_plot3 <- function(dat) {
 # alternative method shown below only creates 2 patch areas 
 stitch_plots <- function(
     p1, p2, p3,
-    title = "Emergency care activity for many common infections of childhood was much higher in 2021") {
+    title = "Plot title") {
   
   layout <- c(
     area(t = 1, l = 1, b = 1, r = 1),
@@ -91,7 +91,7 @@ stitch_plots <- function(
     plot_annotation(
       caption = "Source(s): Strategy Unit analysis; SUS+, National Commissioning Data Repository.",
       title = {{title}},
-      theme = theme_871(base_size = 7)
+      theme = theme(plot.title = element_text(size = 11), plot.caption = element_text(size = 8))
       )
 } 
 
@@ -108,7 +108,7 @@ stitch_plots <- function(
 #     )
 
 # timeseries plot admissions
-build_plot4 <- function(dat) {
+build_plot4 <- function(dat, title = "Plot title") {
   
   plot_dat <- dat |> 
     unite(isoyrwk, c(isoyr, isowk), sep = "-", remove = FALSE) |>
@@ -136,6 +136,6 @@ build_plot4 <- function(dat) {
     labs(
       caption = "Source(s): Strategy Unit analysis; SUS+, National Commissioning Data Repository.",
       subtitle = "Weekly emergency admissions",
-      title = "The coronavirus pandemic distorted the normal seasonal pattern\nfor many common infections of childhood")
+      title = {{title}})
 }
 

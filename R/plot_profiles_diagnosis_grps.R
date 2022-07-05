@@ -71,11 +71,12 @@ names(gen_prof_plots) <- nms_lookup$full_nm[match(short_nms_df$short_nm, nms_loo
 
 
 # 3 profile plots----
+# ensure consistent ordering before building plots
+gen_prof_plots <- gen_prof_plots[order(names(gen_prof_plots))]
+nms <- sort(na.omit(unique(ed_grp$grpnm)))
+
 plot1_ls <- map(gen_prof_plots, ~ build_plot1(.))
-
-nms <- na.omit(unique(ed_grp$grpnm))
 plot2_ls <- nms |> set_names() |> map(build_plot2, dat = ed_grp)
-
 plot3_ls <- map(gen_prof_plots, ~ build_plot3(.))
 
 
@@ -87,13 +88,49 @@ plot1_stitch_ls <- plot1_ls |> list_modify("Postoperative problems" = NULL)
 plot3_stitch_ls <- plot3_ls |> list_modify("Postoperative problems" = NULL)
 plot2_stitch_ls <- plot2_ls |> list_modify("Eye conditions and injuries" = NULL, "Other childhood conditions" = NULL)
 
-stitched_plots_ls <- pmap(list(plot1_stitch_ls, plot2_stitch_ls, plot3_stitch_ls), stitch_plots)
+# check names and order match
+a <- names(plot1_stitch_ls)
+b <- names(plot1_stitch_ls)
+c <- names(plot2_stitch_ls)
+
+map_lgl(list(b, c), identical, a)
+all(map_lgl(list(b, c), identical, a))
+
+# a
+plot_titles_ls <- list(
+  "Emergency care activity increased for many common infections of childhood",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "..."
+)
+
+stitched_plots_ls <- pmap(list(plot1_stitch_ls, plot2_stitch_ls, plot3_stitch_ls, plot_titles_ls), stitch_plots)
 
 
 
 
 # 5 trend plot----
-trend_plots <- map(gen_prof_plots, ~ build_plot4(.))
+# names(gen_prof_plots)
+plot_titles_ls <- list(
+  "The coronavirus pandemic distorted the normal seasonal pattern\nfor many common infections of childhood",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "...",
+  "Looks like a step change ...",
+  "...",
+  "...",
+  "..."
+)
+trend_plots <- map2(gen_prof_plots, plot_titles_ls, build_plot4)
 
 
 
