@@ -83,15 +83,21 @@ plot3_ls <- map(gen_prof_plots, ~ build_plot3(.))
 
 
 # 4 stitch profile plots----
+# plot spacers required because some groups are specific to ED or inpatient activity
 # 13 groups in total (ED = 12; IP = 11) only 10 groups are common to both settings
-plot1_stitch_ls <- plot1_ls |> list_modify("Postoperative problems" = NULL)
-plot3_stitch_ls <- plot3_ls |> list_modify("Postoperative problems" = NULL)
-plot2_stitch_ls <- plot2_ls |> list_modify("Eye conditions and injuries" = NULL, "Other childhood conditions" = NULL)
+# eye conditions and other childhood conditions are ED only
+plot1_ls <- append(plot1_ls, list("Eye conditions and injuries" = plot_spacer()), after = match("Exacerbation of chronic condition", names(plot1_ls)))
+plot1_ls <- append(plot1_ls, list("Other childhood conditions" = plot_spacer()), after = match("Late presentation of chronic condition", names(plot1_ls)))
+plot3_ls <- append(plot3_ls, list("Eye conditions and injuries" = plot_spacer()), after = match("Exacerbation of chronic condition", names(plot3_ls)))
+plot3_ls <- append(plot3_ls, list("Other childhood conditions" = plot_spacer()), after = match("Late presentation of chronic condition", names(plot3_ls)))
+
+# postoperative problems is inpatient only
+plot2_ls <- append(plot2_ls, list("Postoperative problems" = plot_spacer()), after = match("Other childhood conditions", names(plot2_ls)))
 
 # check names and order match
-a <- names(plot1_stitch_ls)
-b <- names(plot1_stitch_ls)
-c <- names(plot2_stitch_ls)
+a <- names(plot1_ls)
+b <- names(plot2_ls)
+c <- names(plot3_ls)
 
 map_lgl(list(b, c), identical, a)
 all(map_lgl(list(b, c), identical, a))
@@ -107,10 +113,13 @@ plot_titles_ls <- list(
   "...",
   "...",
   "...",
+  "...",
+  "...",
+  "...",
   "..."
 )
 
-stitched_plots_ls <- pmap(list(plot1_stitch_ls, plot2_stitch_ls, plot3_stitch_ls, plot_titles_ls), stitch_plots)
+stitch_plots_ls <- pmap(list(plot1_ls, plot2_ls, plot3_ls, plot_titles_ls), stitch_plots)
 
 
 
@@ -130,15 +139,16 @@ plot_titles_ls <- list(
   "...",
   "..."
 )
+
 trend_plots <- map2(gen_prof_plots, plot_titles_ls, build_plot4)
 
 
 
 
 # 6 save----
-for (i in 1:length(stitched_plots_ls)) {
-  nm <- str_replace_all(str_to_lower(names(stitched_plots_ls[i])), "[[:space:]]", "_")
-  ggsave(here("figures", paste0("profile_", nm, ".png")), stitched_plots_ls[[i]], width = 158, height = 60, units = c("mm"))
+for (i in 1:length(stitch_plots_ls)) {
+  nm <- str_replace_all(str_to_lower(names(stitch_plots_ls[i])), "[[:space:]]", "_")
+  ggsave(here("figures", paste0("profile_", nm, ".png")), stitch_plots_ls[[i]], width = 158, height = 60, units = c("mm"))
 }
 
 for (i in 1:length(trend_plots)) {

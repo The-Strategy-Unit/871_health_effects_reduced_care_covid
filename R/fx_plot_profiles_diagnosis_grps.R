@@ -73,7 +73,8 @@ build_plot3 <- function(dat) {
 
 # stitch 3 plots above together
 # this method of composing the layout (passing design argument to plot_layout) creates 3 patch areas
-# alternative method shown below only creates 2 patch areas 
+# alternative method shown below only creates 2 patch areas
+# use plot(layout) to view layout
 stitch_plots <- function(
     p1, p2, p3,
     title = "Plot title") {
