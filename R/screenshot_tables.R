@@ -31,6 +31,22 @@ webshot(c(
 )
 
 webshot(c(
+  here("./", "late_presentation_of_chronic_condition_table.html"),
+  here("./", "late_presentation_of_chronic_condition_table.html")
+  ),
+  selector = list(
+    ".late-presentation-ip-rtbl",
+    ".late-presentation-ed-rtbl"
+    ),
+  zoom = 2,
+  expand = c(0, 0, 0, 0),
+  file = c(
+    here("figures", "late_presentation_of_chronic_condition_ip_tbl.png"),
+    here("figures", "late_presentation_of_chronic_condition_ed_tbl.png")
+    )
+)
+
+webshot(c(
   here("./", "topn_diagnosis_increased_table.html"),
   here("./", "topn_diagnosis_increased_table.html")
   ),

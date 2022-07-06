@@ -2,7 +2,9 @@
 .topn-ip-rtbl,
 .topn-ed-rtbl,
 .childhood-infections-ip-rtbl,
-.childhood-infections-ed-rtbl {
+.childhood-infections-ed-rtbl,
+.late-presentation-ip-rtbl,
+.late-presentation-ed-rtbl {
   margin: 0;
   width: 640px;
   font-family: "Fira Sans", sans-serif;
