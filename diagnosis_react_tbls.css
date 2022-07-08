@@ -1,10 +1,12 @@
 
-.topn-ip-rtbl,
-.topn-ed-rtbl,
-.childhood-infections-ip-rtbl,
-.childhood-infections-ed-rtbl,
-.late-presentation-ip-rtbl,
-.late-presentation-ed-rtbl {
+body {
+  background-color: #F9F8F2;
+}
+
+.rtbl-grp-ed,
+.rtbl-grp-ip,
+.rtbl-topn-ed,
+.rtbl-topn-ip {
   margin: 0;
   width: 640px;
   font-family: "Fira Sans", sans-serif;
