@@ -1,5 +1,13 @@
 
 
+# packages----
+library("tidyverse")
+library("here")
+library("reactable")
+library("htmltools")
+# lubridate via namespace
+
+
 # palette----
 library("MetBrewer")
 # met.brewer("VanGogh2")
