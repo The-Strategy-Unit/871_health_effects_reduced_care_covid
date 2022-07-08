@@ -1,0 +1,59 @@
+---
+title: "Effects of physical violence diagnoses table using reactable"
+author: '[Paul Seamer](mailto:paulseamer@nhs.net)'
+date: "`r lubridate::today()`"
+output:
+  html_document:
+    keep_md: FALSE
+    css: "diagnosis_react_tbls.css"
+---
+
+```{r, setup, include=FALSE}
+# functions
+source(here::here("R", "fx_react_tbl.R"))
+source(here::here("R", "fx_react_tbl_div.R"))
+```
+
+```{r, read, include=FALSE}
+ed_grp <- readRDS(here("data", "grouped_ed_diags.rds"))
+ip_grp <- readRDS(here("data", "grouped_ip_diags.rds"))
+
+# ED
+ed_dat <- ed_grp |>
+  filter(grpnm == "Effects of physical violence") |> 
+  select(diagnm, p2, u) |>
+  arrange(desc(u))
+
+# inpatient
+ip_dat <- ip_grp |>
+  filter(grpnm == "Effects of physical violence") |> 
+  select(diagnm, icd10, p2, u) |>
+  arrange(desc(u))
+
+short_nms <- tribble(
+  ~ icd10, ~ shortnm,
+  "R930", "Abnormal findings imaging of head, nec."
+  )
+
+ip_dat <- ip_dat |> 
+  left_join(short_nms, by = "icd10") |> 
+  mutate(shortnm = ifelse(is.na(shortnm), diagnm, shortnm)) |> 
+  select(shortnm, p2, u) |> 
+  rename(diagnm = shortnm)
+```
+
+```{r, react-tbl-ed, echo=FALSE}
+tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
+
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for effects of physical violence")
+```
+
+```{r, react-tbl-ip, echo=FALSE}
+tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
+
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for effects of physical violence")
+```
+
+```{r, google-fonts, echo=FALSE}
+g_fonts
+```

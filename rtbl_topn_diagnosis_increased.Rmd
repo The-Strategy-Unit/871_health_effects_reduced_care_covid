@@ -9,15 +9,9 @@ output:
 ---
 
 ```{r, setup, include=FALSE}
-# packages
-library("tidyverse")
-library("here")
-library("reactable")
-library("htmltools")
-# lubridate via namespace
-
 # functions
-source(here("R", "fx_react_tbl.R"))
+source(here::here("R", "fx_react_tbl.R"))
+source(here::here("R", "fx_react_tbl_div.R"))
 ```
 
 ```{r, read, include=FALSE}
@@ -78,54 +72,22 @@ ip_dat <- ip_dat |>
   rename(diagnm = shortnm)
 ```
 
-```{r, react-tbl-ip, echo=FALSE}
-formals(scale_value)$limit <- 100
-formals(scale_value)$omit  <- 2
-tbl <- build_react_tbl(ip_dat, units = "Admis", colwidth = c(240, 200, 200))
-
-div(
-  class = "topn-ip-rtbl",
-  div(
-    class = "rtbl-title",
-    h2("Inpatient diagnoses with the biggest increases"),
-    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019"
-  ),
-  htmlwidgets::appendContent(
-    tbl,
-    htmltools::tags$span(
-      class = "rtbl-src",
-      p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
-    )
-  )
-)
-```
-
 ```{r, react-tbl-ed, echo=FALSE}
 formals(scale_value)$limit <- 10
 formals(scale_value)$omit  <- 1
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-div(
-  class = "topn-ed-rtbl",
-  div(
-    class = "rtbl-title",
-    h2("ED diagnoses with the biggest increases"),
-    "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019"
-  ),
-  htmlwidgets::appendContent(
-    tbl,
-    htmltools::tags$span(
-      class = "rtbl-src",
-      p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
-    )
-  )
-)
+react_tbl_div_h2(tbl, selector = "rtbl-topn-ed", h2title = "ED diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019")
+```
+
+```{r, react-tbl-ip, echo=FALSE}
+formals(scale_value)$limit <- 100
+formals(scale_value)$omit  <- 2
+tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
+
+react_tbl_div_h2(tbl, selector = "rtbl-topn-ip", h2title = "Inpatient diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019")
 ```
 
 ```{r, google-fonts, echo=FALSE}
-# add Google fonts to the page
-htmltools::tags$link(
-  href = "https://fonts.googleapis.com/css?family=Work+Sans:400,700|Fira+Mono&display=fallback",
-  rel = "stylesheet"
-)
+g_fonts
 ```

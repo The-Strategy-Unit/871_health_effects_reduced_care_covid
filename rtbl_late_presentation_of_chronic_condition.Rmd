@@ -1,0 +1,69 @@
+---
+title: "Late presentation of chronic condition diagnoses table using reactable"
+author: '[Paul Seamer](mailto:paulseamer@nhs.net)'
+date: "`r lubridate::today()`"
+output:
+  html_document:
+    keep_md: FALSE
+    css: "diagnosis_react_tbls.css"
+---
+
+```{r, setup, include=FALSE}
+# functions
+source(here::here("R", "fx_react_tbl.R"))
+source(here::here("R", "fx_react_tbl_div.R"))
+```
+
+```{r, read, include=FALSE}
+ed_grp <- readRDS(here("data", "grouped_ed_diags.rds"))
+ip_grp <- readRDS(here("data", "grouped_ip_diags.rds"))
+
+# ED
+ed_dat <- ed_grp |>
+  filter(grpnm == "Late presentation of chronic condition") |> 
+  select(diagnm, p2, u) |>
+  arrange(desc(u))
+
+# inpatient
+ip_dat <- ip_grp |>
+  filter(grpnm == "Late presentation of chronic condition") |> 
+  select(diagnm, icd10, p2, u) |>
+  arrange(desc(u))
+
+short_nms <- tribble(
+  ~ icd10, ~ shortnm,
+  "J210", "Acute bronchiolitis due to RSV",
+  "J121", "RSV pneumonia",
+  "J211", "Acute bronchiolitis hu. metapneumovirus",
+  "B348", "Other viral infections, unspec. site",
+  "J123", "Human metapneumovirus pneumonia",
+  "B341", "Entovirus infection, unspec. site",
+  "J988", "Other spec. respiratory disorders",
+  "J218", "Acute bronchiolitis other organisms",
+  "J219", "Acute bronchiolitis, unspec.",
+  "J122", "Parainfluenza virus pneumonia",
+  "B000", "Eczema herpeticum"
+)
+
+ip_dat <- ip_dat |> 
+  left_join(short_nms, by = "icd10") |> 
+  mutate(shortnm = ifelse(is.na(shortnm), diagnm, shortnm)) |> 
+  select(shortnm, p2, u) |> 
+  rename(diagnm = shortnm)
+```
+
+```{r, react-tbl-ed, echo=FALSE}
+tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
+
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for late presentation of chronic condition")
+```
+
+```{r, react-tbl-ip, echo=FALSE}
+tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
+
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for late presentation of chronic condition")
+```
+
+```{r, google-fonts, echo=FALSE}
+g_fonts
+```
