@@ -76,7 +76,9 @@ SET @EndWk = 43;
 -- eating disorders
 --SET @DiagCodes = '72366004'
 -- closed fracture of nasal bones
-SET @DiagCodes = '81639003' 
+--SET @DiagCodes = '81639003'
+-- radiculopathy
+SET @DiagCodes = ('128196005,54404000')
 
 EXEC [dbo].[p_get_ed_diags_set]@StartWk, @EndWk, @DiagCodes;
 
