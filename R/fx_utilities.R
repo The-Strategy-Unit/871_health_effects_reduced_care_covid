@@ -22,7 +22,7 @@ font_hoist <- function(family, silent = FALSE) {
 
 
 # clean raw data
-clean_raw_dat <- function(df, procd = FALSE) {
+clean_raw_dat <- function(df, ed = FALSE) {
   df <- df |>
     unite(isoyrwk, c(isoyr, isowk), sep = "-", remove = FALSE) |>
     mutate(
@@ -33,7 +33,8 @@ clean_raw_dat <- function(df, procd = FALSE) {
       tmper = case_when(tmper == "ref" ~ "p1", TRUE ~ tmper)
     ) %>%
     {
-      if (procd) mutate(., procd = substr(procd, 1, 3)) else .
+      if (ed) mutate(., procd = substr(procd, 1, 3)) |> 
+        mutate(diagnm = str_remove(diagnm, "\\s\\(disorder\\)|\\s\\(finding\\)|\\s\\(procedure\\)")) else .
     }
 }
 
