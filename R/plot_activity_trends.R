@@ -22,7 +22,7 @@ source(here("R", "plot_setup_and_parameters.R"))
 
 # 1 read data----
 ed_dat <- fread(
-  here("raw_data", "ed_diag_dat_20220516.csv"),
+  here("raw_data", "ed_diag_dat_20220719.csv"),
   na = c("NULL", "NA"))
 
 ip_dat <- fread(
@@ -42,7 +42,7 @@ procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
 
 
 # 2 clean----
-ed_dat <- clean_raw_dat(ed_dat, procd = TRUE) |> filter(isoyrwk != "2022-13")
+ed_dat <- clean_raw_dat(ed_dat, ed = TRUE) |> filter(isoyrwk != "2022-13")
 ip_dat <- clean_raw_dat(ip_dat) |> filter(isoyrwk != "2022-13")
 
 beds_dat <- beds_dat |>
