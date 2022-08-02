@@ -26,13 +26,13 @@ code_th <- .8  # coding threshold
 
 
 # 1 read data----
-ed_dat <- fread(here("raw_data", "ed_diag_dat_20220516.csv"), na = c("NULL", "NA"))
+ed_dat <- fread(here("raw_data", "ed_diag_dat_20220719.csv"), na = c("NULL", "NA"))
 
 
 
 
 # 2 clean----
-ed_dat <- clean_raw_dat(ed_dat, procd = TRUE) |> filter(isoyrwk != "2022-13")
+ed_dat <- clean_raw_dat(ed_dat, ed = TRUE) |> filter(isoyrwk != "2022-13")
 
 
 
@@ -52,7 +52,7 @@ ed_dat |>
   scale_x_discrete() +
   scale_y_continuous()
 
-# proportion of uncoded activity in study periods
+# proportion of activity uncoded in study periods
 ed_dat |>
   filter(!is.na(tmper)) |>
   mutate(miss_diag = ifelse(is.na(diagcd), "miss", "notmiss")) |>
