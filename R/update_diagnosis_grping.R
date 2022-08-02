@@ -35,7 +35,7 @@ class_dat     <- readRDS(here("data", "initial_diagnosis_grping.rds"))
 procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
 
 ed_dat <- fread(
-  here("raw_data", "ed_diag_dat_20220516.csv"),
+  here("raw_data", "ed_diag_dat_20220719.csv"),
   na = c("NULL", "NA"))
 
 
@@ -45,7 +45,7 @@ ed_dat <- fread(
 ed_class <- class_dat |> filter(pod == "ed")
 ip_class <- class_dat |> filter(pod == "ip")
 
-ed_dat <- clean_raw_dat(ed_dat, procd = TRUE) |> filter(isoyrwk != "2022-13")
+ed_dat <- clean_raw_dat(ed_dat, ed = TRUE) |> filter(isoyrwk != "2022-13")
 
 
 
