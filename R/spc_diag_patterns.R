@@ -24,7 +24,7 @@ ip_n <- 100L
 
 
 # 1 read data----
-ed_dat <- fread(here("raw_data", "ed_diag_dat_20220516.csv"), na = c("NULL", "NA"))
+ed_dat <- fread(here("raw_data", "ed_diag_dat_20220719.csv"), na = c("NULL", "NA"))
 ip_dat <- fread(here("raw_data", "ip_diag_dat_20220517.csv"), na = c("NULL", "NA"))
 
 procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
@@ -33,20 +33,17 @@ procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
 
 
 # 2 clean----
-ed_dat <- clean_raw_dat(ed_dat, procd = TRUE) |> filter(isoyrwk != "2022-13")
+ed_dat <- clean_raw_dat(ed_dat, ed = TRUE) |> filter(isoyrwk != "2022-13")
 ed_dat <- ed_dat |> filter(procd %in% procd_th_plus)
 
-ip_dat <- clean_raw_dat(ip_dat, procd = FALSE) |> filter(isoyrwk != "2022-13")
+ip_dat <- clean_raw_dat(ip_dat) |> filter(isoyrwk != "2022-13")
 
 
 
 
 # 3 spc analysis----
 chg_ed <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = NULL, age = NULL, high = TRUE, n = ed_n)
-
-# n = 148
-chg_ed <- chg_ed |> 
-  mutate(diagnm = str_remove(diagnm, "\\s\\(disorder\\)|\\s\\(finding\\)|\\s\\(procedure\\)"))
+# n = 147
 
 chg_ip <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = NULL, age = NULL, high = TRUE, n = ip_n)
 
