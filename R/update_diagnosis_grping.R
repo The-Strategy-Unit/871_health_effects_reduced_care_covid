@@ -160,7 +160,10 @@ ed_grp_new <- ed_grp |>
   mutate(grpnm = case_when(
     diagnm == "Blunt injury of eye" ~ "Effects of physical violence",
     TRUE ~ grpnm)
-  )
+  ) |> 
+  # drop thrombocytopenic disorder from other childhood conditions group
+  # (data suggest predominantly adult cases)
+  filter(diagnm != "Thrombocytopenic disorder") 
 
 # emergency admissions
 ip_grp_new <- ip_grp |> 
