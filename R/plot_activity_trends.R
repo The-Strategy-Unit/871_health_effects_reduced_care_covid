@@ -98,7 +98,7 @@ trend_ip <- ip_dat |>
 trend_2 <- trend_ed + theme(plot.margin = margin(r = 4, unit = "mm")) + trend_ip
 trend_2 <- trend_2 + plot_annotation(
   caption = "Source: SUS+, National Commissioning Data Repository.",
-  title = "Figure 1: The COVID-19 pandemic caused major disruption to\nemergency healthcare services"
+  title = "Fig 1: The COVID-19 pandemic caused major disruption to\nemergency healthcare services"
 )
 
 ggsave(here("figures", "trend_visits_and_admis.png"), trend_2, width = 144, height = 100, units = c("mm"))
@@ -128,7 +128,7 @@ trend_ed_f2020 <- ed_dat |>
 trend_2 <- trend_ed_f2020 + theme(plot.margin = margin(r = 4, unit = "mm")) + trend_beds_occ
 trend_2 <- trend_2 + plot_annotation(
   caption = "Source: SUS+, NCDR; COVID-19 daily situation reports, NHSE.",
-  title = "Figure 2: By mid-2021, vaccines meant fewer beds occupied by Covid\npatients and more capacity for treating non-Covid patients"
+  title = "Fig 2: By mid-2021, vaccines meant fewer beds occupied by Covid\npatients and more capacity for treating non-Covid patients"
 )
 
 ggsave(here("figures", "trend_visits_and_bed_occ.png"), trend_2, width = 144, height = 100, units = c("mm"))
@@ -167,7 +167,7 @@ ed_blocks <- ed_dat |>
   labs(
     caption = "Source: SUS+, National Commissioning Data Repository.",
     subtitle = "Weekly ED visits (thousands)",
-    title = "Figure 3: By Summer 2021, ED visits had returned to their\npre-pandemic levels"
+    title = "Fig 3: By Summer 2021, ED visits had returned to their\npre-pandemic levels"
   )
 
 ggsave(here("figures", "trend_visits_blocked.png"), ed_blocks, width = 144, height = 100, units = c("mm"))
@@ -212,7 +212,7 @@ ed_ts <- ed_dat |>
 ed_compare <- ed_bar + theme(plot.margin = margin(r = 5, unit = "mm")) + ed_ts
 ed_compare <- ed_compare + plot_annotation(
   caption = "Source: SUS+, National Commissioning Data Repository.",
-  title = "Figure 4: ED visit numbers in weeks 25\u201343 in 2021 were similar to\ntheir pre-pandemic numbers"
+  title = "Fig 4: ED visit numbers in weeks 25\u201343 in 2021 were similar to\ntheir pre-pandemic numbers"
 )
 
 ggsave(here("figures", "visits_cf_study_periods.png"), ed_compare, width = 144, height = 100, units = c("mm"))
@@ -240,7 +240,7 @@ ip_blocks <- ip_dat |>
   labs(
     caption = "Source: SUS+, National Commissioning Data Repository.",
     subtitle = "Weekly emergency admissions (thousands)",
-    title = "Figure 5: By Summer 2021, emergency admissions had recovered\nclose to pre-pandemic levels"
+    title = "Fig 5: By Summer 2021, emergency admissions had recovered\nclose to pre-pandemic levels"
   )
 
 ggsave(here("figures", "trend_admis_blocked.png"), ip_blocks, width = 144, height = 100, units = c("mm"))
@@ -285,7 +285,7 @@ ip_ts <- ip_dat |>
 ip_compare <- ip_bar + theme(plot.margin = margin(r = 5, unit = "mm")) + ip_ts
 ip_compare <- ip_compare + plot_annotation(
   caption = "Source: SUS+, National Commissioning Data Repository.",
-  title = "Figure 6: Emergency admissions in weeks 25\u201343 in 2021 were 4.6%\nbelow their pre-pandemic level"
+  title = "Fig 6: Emergency admissions in weeks 25\u201343 in 2021 were 4.6%\nbelow their pre-pandemic level"
 )
 
 ggsave(here("figures", "admis_cf_study_periods.png"), ip_compare, width = 144, height = 100, units = c("mm"))
