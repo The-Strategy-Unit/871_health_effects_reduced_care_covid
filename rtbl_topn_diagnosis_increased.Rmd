@@ -45,6 +45,7 @@ short_nms <- tribble(
   "J210", "Acute bronchiolitis due to RSV",
   "J121", "RSV pneumonia",
   "J211", "Acute bronchiolitis hu. metapneumovirus",
+  "J205", "Acute bronchitis due to RSV",
   "B348", "Other viral infections unspec. site",
   "J128", "Other viral pneumonia",
   "J123", "Human metapneumovirus pneumonia",
@@ -56,6 +57,8 @@ short_nms <- tribble(
   "J988", "Other respiratory disorders",
   "J218", "Acute bronchiolitis other organisms",
   "J219", "Acute bronchiolitis, unspec.",
+  "I132", "HTV heart & renal dis. w. CHF & renal fail.",
+  "I130", "HTV heart & renal dis. w. CHF",
   "J159", "Bacterial pneumonia, unspec.",
   "Q431", "Hirschsprung's disease",
   "J129", "Viral pneumonia, unspec."
@@ -77,7 +80,7 @@ formals(scale_value)$limit <- 10
 formals(scale_value)$omit  <- 1
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-react_tbl_div_h2(tbl, selector = "rtbl-topn-ed", h2title = "ED diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019")
+react_tbl_div_h2(tbl, selector = "rtbl-topn-ed", h2title = "Table 1: ED diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2021 these diagnoses were recorded with greater frequency than in 2019")
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
@@ -85,7 +88,7 @@ formals(scale_value)$limit <- 100
 formals(scale_value)$omit  <- 2
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 
-react_tbl_div_h2(tbl, selector = "rtbl-topn-ip", h2title = "Inpatient diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2022 these diagnoses were recorded with greater frequency than in 2019")
+react_tbl_div_h2(tbl, selector = "rtbl-topn-ip", h2title = "Table 2: Inpatient diagnoses with the biggest increases", title = "When activity returned to pre-pandemic levels in the second-half of 2021 these diagnoses were recorded with greater frequency than in 2019")
 ```
 
 ```{r, google-fonts, echo=FALSE}
