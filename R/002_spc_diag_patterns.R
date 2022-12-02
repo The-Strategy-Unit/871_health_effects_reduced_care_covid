@@ -25,9 +25,9 @@ ip_n <- 100L
 
 # 1 read data----
 ed_dat <- fread(here("raw_data", "ed_diag_dat_20220719.csv"), na = c("NULL", "NA"))
-ip_dat <- fread(here("raw_data", "ip_diag_dat_20220517.csv"), na = c("NULL", "NA"))
+ip_dat <- fread(here("raw_data", "ip_diag_dat_20220805.csv"), na = c("NULL", "NA"))
 
-procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
+procd_th_plus <- readRDS(here("data", "sample_providers_code_above_threshold.rds"))
 
 
 
@@ -53,19 +53,18 @@ chg_ip <- chg_ip |>
 
 # subgroup analysis
 # men
-chg_ed_male   <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = "m", age = "adult", high = TRUE, n = ed_n)
-chg_ip_male   <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = "m", age = "adult", high = TRUE, n = ip_n)
+chg_ed_male <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = "m", age = "adult", high = TRUE, n = ed_n)
+chg_ip_male <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = "m", age = "adult", high = TRUE, n = ip_n)
 # women
 chg_ed_female <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = "f", age = "adult", high = TRUE, n = ed_n)
 chg_ip_female <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = "f", age = "adult", high = TRUE, n = ip_n)
 # children
-chg_ed_child  <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = NULL, age = "child", high = TRUE, n = ed_n)
-chg_ip_child  <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = NULL, age = "child", high = TRUE, n = ip_n)
+chg_ed_child <- spc_diagnosis_chg(ed_dat, diagnm = diagnm, sex = NULL, age = "child", high = TRUE, n = ed_n)
+chg_ip_child <- spc_diagnosis_chg(ip_dat, diagnm = diagl4nm, sex = NULL, age = "child", high = TRUE, n = ip_n)
 
 
 
 
 # 4 save----
-saveRDS(chg_ed, here("data", "spc_ed_diags_all_high.rds"))
-saveRDS(chg_ip, here("data", "spc_ip_diags_all_high.rds"))
-
+saveRDS(chg_ed, here("data", "spc_ed_diags_increased.rds"))
+saveRDS(chg_ip, here("data", "spc_ip_diags_increased.rds"))

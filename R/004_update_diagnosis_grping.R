@@ -7,9 +7,9 @@
 # there are 2 reasons why final grouping differs from the original 
 # classification produced by Simon Bourne using 871_diagnosis_grouper_app
 # 1) ED only - here, the original class. is applied to a sample of providers 
-# that code above a threshold, whereas the initial class. was based on an earlier 
+# that code above a threshold, whereas the original class. was based on an earlier 
 # version of raw data that used full ED population (not a sample), so there are 
-# some ED  diagnoses that were previously classified into a group that don't 
+# some ED  diagnoses that were previously placed in a group that don't 
 # appear in the updated list of diagnoses that increased significantly in the sample
 # 2) initial groupings are revised to reflect outcome of discussion with SW 2022-06-17
 # some diagnoses move group, some groups are removed/renamed/collapsed and new 
@@ -29,10 +29,10 @@ source(here("R", "fx_utilities.R"))
 
 
 # 1 read data----
-chg_ed        <- readRDS(here("data", "spc_ed_diags_all_high.rds"))
-chg_ip        <- readRDS(here("data", "spc_ip_diags_all_high.rds"))
+chg_ed        <- readRDS(here("data", "spc_ed_diags_increased.rds"))
+chg_ip        <- readRDS(here("data", "spc_ip_diags_increased.rds"))
 class_dat     <- readRDS(here("data", "initial_diagnosis_grping.rds"))
-procd_th_plus <- readRDS(here("data", "sample_provs_code_above_threshold.rds"))
+procd_th_plus <- readRDS(here("data", "sample_providers_code_above_threshold.rds"))
 
 ed_dat <- fread(
   here("raw_data", "ed_diag_dat_20220719.csv"),
@@ -114,21 +114,21 @@ ed_grp_new <- ed_grp |>
   rename(old_grpnm = grpnm) |> 
   # rename grps
   mutate(grpnm = case_when(
-    old_grpnm == "covid-19" ~ "COVID-19",
-    old_grpnm == "primary care late presentation" ~ "Late presentation of chronic condition",
+    old_grpnm == "covid-19" ~ "Covid-19",
+    old_grpnm == "primary care late presentation" ~ "Late presentation of chronic conditions",
     # collapse primary care follow-up groups
     old_grpnm == "primary care fup ltc" ~ 
-      "Exacerbation of chronic condition",
+      "Exacerbation of chronic conditions",
     old_grpnm == "primary care fup ltc - emergency" ~ 
-      "Exacerbation of chronic condition",
+      "Exacerbation of chronic conditions",
     old_grpnm == "emergency eye services" ~ "Eye conditions and injuries",
     old_grpnm == "antenatal services" ~ "Complications of pregnancy",
     old_grpnm == "isolation older people" ~ "Social isolation among older people",
     old_grpnm == "surgical fup" ~ "Postoperative problems",
     old_grpnm == "mental health" ~ NA_character_,
     old_grpnm == "alcohol" ~ "Effects of alcohol misuse",
-    old_grpnm == "domestic violence" ~ "Effects of physical violence",
-    old_grpnm == "sedentary lifestyles" ~ "Sedentary lifestyles",
+    old_grpnm == "domestic violence" ~ "Physical injuries",
+    old_grpnm == "sedentary lifestyles" ~ "Spinal or back conditions",
     TRUE ~ as.character(old_grpnm))
   ) |> 
   # new grp - common infections of childhood
@@ -158,7 +158,7 @@ ed_grp_new <- ed_grp |>
   ) |> 
   # move blunt injury of eye
   mutate(grpnm = case_when(
-    diagnm == "Blunt injury of eye" ~ "Effects of physical violence",
+    diagnm == "Blunt injury of eye" ~ "Physical injuries",
     TRUE ~ grpnm)
   ) |> 
   # drop thrombocytopenic disorder from other childhood conditions group
@@ -174,21 +174,21 @@ ip_grp_new <- ip_grp |>
     ) |> 
   # rename grps
   mutate(grpnm = case_when(
-    old_grpnm == "covid-19" ~ "COVID-19",
-    old_grpnm == "primary care late presentation" ~ "Late presentation of chronic condition",
+    old_grpnm == "covid-19" ~ "Covid-19",
+    old_grpnm == "primary care late presentation" ~ "Late presentation of chronic conditions",
     # collapse primary care follow-up groups
     old_grpnm == "primary care fup ltc" ~ 
-      "Exacerbation of chronic condition",
+      "Exacerbation of chronic conditions",
     old_grpnm == "primary care fup ltc - emergency" ~ 
-      "Exacerbation of chronic condition",
+      "Exacerbation of chronic conditions",
     old_grpnm == "emergency eye services" ~ "Eye conditions and injuries",
     old_grpnm == "antenatal services" ~ "Complications of pregnancy",
     old_grpnm == "isolation older people" ~ "Social isolation among older people",
     old_grpnm == "surgical fup" ~ "Postoperative problems",
     old_grpnm == "mental health" ~ NA_character_,
     old_grpnm == "alcohol" ~ "Effects of alcohol misuse",
-    old_grpnm == "domestic violence" ~ "Effects of physical violence",
-    old_grpnm == "sedentary lifestyles" ~ "Sedentary lifestyles",
+    old_grpnm == "domestic violence" ~ "Physical injuries",
+    old_grpnm == "sedentary lifestyles" ~ "Spinal or back conditions",
     TRUE ~ as.character(old_grpnm))
   ) |> 
   # new grp - common infections of childhood
@@ -220,14 +220,18 @@ ip_grp_new <- ip_grp |>
   ) |> 
   # U ICD10 codes in covid group
   mutate(grpnm = case_when(
-    icd10 = str_detect(icd10, "^U07") ~ "COVID-19",
+    icd10 = str_detect(icd10, "^U07") ~ "Covid-19",
     TRUE ~ grpnm)
   ) |> 
   # move E113 diabetes eye complications
   mutate(grpnm = case_when(
-    icd10 == "E113" ~ "Exacerbation of chronic condition",
+    icd10 == "E113" ~ "Exacerbation of chronic conditions",
     TRUE ~ grpnm)
-  )
+  ) |>  # remove R930 from effects of physical violence
+  mutate(grpnm = case_when(
+    icd10 == "R930" ~ NA_character_,
+    TRUE ~ grpnm
+  ))
 
 # summarise changes
 ed_grp_new |> 

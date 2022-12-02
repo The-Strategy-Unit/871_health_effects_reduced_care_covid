@@ -14,23 +14,25 @@ library("directlabels")
 library("MetBrewer")
 library("patchwork")
 
+# functions ----
+source(here("R", "fx_utilities.R"))
+
 # fonts----
 library("ragg")
-source(here("R", "fx_utilities.R"))
 # systemfonts::system_fonts()
-# systemfonts::system_fonts() %>% 
-#   filter(family == "Fira Sans") %>% 
+# systemfonts::system_fonts() %>%
+#   filter(family == "Fira Sans") %>%
 #   transmute(
 #     family, style,
 #     file = str_extract(path, "[\\w-]+\\.ttf$")
-#   ) |> 
+#   ) |>
 #   print(n = 25)
 font_hoist("Fira Sans")
 # systemfonts::registry_fonts() |> select(-path) |> print(n = 72)
 
 
 # theme----
-source(here("R", "theme_871.R"))
+source(here("R", "fx_theme_871.R"))
 theme_set(theme_871())
 
 
@@ -57,4 +59,3 @@ ref_index <- tibble(
 # palette----
 # met.brewer("VanGogh2")
 pal <- MetPalettes$VanGogh2[[1]]
-

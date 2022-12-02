@@ -45,7 +45,7 @@ grpnms <- c(
 )
 
 # table(class_dat$grpnm)
-# consolidate duplicate group names 
+# consolidate duplicate group names
 class_dat <- class_dat |>
   mutate(grpnm = str_remove(grpnm, "new_diagnosis_group_\\d+_"), grpnm = trimws(grpnm)) |>
   mutate(grpnm = case_when(
@@ -59,68 +59,56 @@ class_dat <- class_dat |>
 
 # lookup for abbreviated group names
 grpnms_lookup <- tribble(
-  ~ oldnm, ~ newnm,
+  ~oldnm, ~newnm,
   "Direct impact of COVID/suspected COVID",
   "covid-19",
-  
   "Lack of GP services leading to late presentation of illness",
   "primary care late presentation",
-  
   "Lack of follow up for chronic conditions from GP/specialists during COVID restrictions",
   "primary care fup ltc",
-  
   "Lack of follow up for chronic conditions from GP/specialists during COVID restrictions leading to an emergency presentation",
   "primary care fup ltc - emergency",
-  
   "Lack of face-to-face GP services for children available during COVID restrictions",
   "primary care children",
-  
   "Reduced availability of emergency eye services",
   "emergency eye services",
-  
   "Reduction in availability of antenatal services during COVID restrictions",
   "antenatal services",
-  
   "Increased isolation of vulnerable older people during COVID restrictions",
   "isolation older people",
-  
   "Lack of usual follow up after surgical procedures during COVID restrictions",
   "surgical fup",
-  
   "Mental health impact of restrictions associated with COVID",
   "mental health",
-  
   "Increased alcohol use during COVID restrictions",
   "alcohol",
-  
   "Increased domestic violence associated with COVID restrictions",
   "domestic violence",
-  
   "Increased sedentary lifestyles associated with COVID restrictions",
   "sedentary lifestyles"
 )
 
-# ordering for abbreviated group names 
+# ordering for abbreviated group names
 grpnms_fct <- c(
-  "covid-19",
-  "primary care late presentation",
-  "primary care fup ltc",
-  "primary care fup ltc - emergency",
-  "primary care children",
-  "emergency eye services",
-  "antenatal services",
-  "isolation older people",
-  "surgical fup",
-  "mental health",
   "alcohol",
+  "antenatal services",
+  "covid-19",
   "domestic violence",
-  "sedentary lifestyles"
+  "emergency eye services",
+  "isolation older people",
+  "mental health",
+  "primary care children",
+  "primary care fup ltc - emergency",
+  "primary care fup ltc",
+  "primary care late presentation",
+  "sedentary lifestyles",
+  "surgical fup"
 )
 
 # remove duplicates
 # class_dat[duplicated(class_dat), ] |> arrange(value)
 # class_dat |> filter(!grpnm %in% grpnms)
-class_dat <- distinct(class_dat) 
+class_dat <- distinct(class_dat)
 
 class_dat <- class_dat |>
   mutate(
@@ -144,4 +132,3 @@ class_dat <- class_dat |>
 
 # 3 save----
 saveRDS(class_dat, here("data", "initial_diagnosis_grping.rds"))
-
