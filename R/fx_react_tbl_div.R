@@ -12,7 +12,7 @@ react_tbl_div <- function(rtbl = tbl, selector = "rtbl", title = "Table title") 
         rtbl,
         htmltools::tags$span(
           class = "rtbl-src",
-          p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
+          p("Sources: Strategy Unit analysis; SUS+, National Commissioning Dataset Repository.")
         )
       )
     )
@@ -32,12 +32,29 @@ react_tbl_div_h2 <- function(rtbl = tbl, selector = "rtbl", h2title = "H2-title"
         rtbl,
         htmltools::tags$span(
           class = "rtbl-src",
-          p("Source(s): Strategy Unit analysis; National Commissioning Dataset Repository.")
+          p("Sources: Strategy Unit analysis; SUS+, National Commissioning Dataset Repository.")
         )
       )
     )
   )
 }
+
+# no title
+react_tbl_div_not <- function(rtbl = tbl, selector = "rtbl", title = "Table title") {
+  tagList(
+    tags$div(
+      class = paste0(selector),
+      htmlwidgets::appendContent(
+        rtbl,
+        htmltools::tags$span(
+          class = "rtbl-src",
+          p("Sources: Strategy Unit analysis; SUS+, National Commissioning Dataset Repository.")
+        )
+      )
+    )
+  )
+}
+
 
 # source Google fonts
 g_fonts <- tagList(
