@@ -1,8 +1,8 @@
-
+/*
 body {
   background-color: #F9F8F2;
 }
-
+*/
 .rtbl-grp-ed,
 .rtbl-grp-ip,
 .rtbl-topn-ed,
@@ -18,20 +18,30 @@ body {
   margin-bottom: 12px;
 }
 
+.Reactable,
+.rt-table {
+  background-color: #FFFFFF;
+}
+
 .rtbl-title {
   margin: 10px 0;
+  font-family: "Fira Sans Medium", sans-serif;
   font-size: 12pt;
   line-height: 1.3;
 }
 
 .rtbl-title h2 {
   font-size: 14pt;
-  font-weight: 600;
   line-height: 1;
 }
 
 .rtbl-src {
   font-size: 8pt;
+  color: #686F73;
+}
+
+.rt-th-inner {
+  padding: 6px 4px;
 }
 
 .rt-td-inner {
@@ -49,7 +59,7 @@ body {
   border-bottom: 2px solid #555;
   font-size: 9pt;
   font-weight: 400;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .bar-cell {
