@@ -15,14 +15,16 @@ source(here::here("R", "fx_react_tbl_div.R"))
 ```
 
 ```{r, read, include=FALSE}
-chg_ed <- readRDS(here("data", "spc_ed_diags_all_high.rds"))
-chg_ip <- readRDS(here("data", "spc_ip_diags_all_high.rds"))
+chg_ed <- readRDS(here("data", "spc_ed_diags_increased.rds"))
+chg_ip <- readRDS(here("data", "spc_ip_diags_increased.rds"))
 
 ed_dat <- chg_ed |>
   select(diagnm, p2, u) |>
   arrange(desc(u))
 
-ed_dat <- ed_dat |> slice(1:20)
+ed_dat <- ed_dat |>
+  slice(1:20) |> 
+  mutate(u = ifelse(diagnm == "Severe acute respiratory syndrome", 999, u)) 
 
 ip_dat <- chg_ip |> 
   select(diagnm, p2, u) |>
@@ -84,7 +86,7 @@ react_tbl_div_h2(tbl, selector = "rtbl-topn-ed", h2title = "Table 1: ED diagnose
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
-formals(scale_value)$limit <- 100
+formals(scale_value)$limit <- 25
 formals(scale_value)$omit  <- 2
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 

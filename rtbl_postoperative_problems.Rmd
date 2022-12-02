@@ -35,7 +35,7 @@ short_nms <- tribble(
   "Z488", "Oth. specified surgical follow-up care",
   "Z090", "Follow-up exam. after surgery for oth. cond.",
   "Z480", "Attention to surgical dressings and sutures",
-  "T835", "Inf. & inflammatory rxn. prosthetic dev., implant, & graft urinary sys.",
+  "T835", "Inf. & inflamm. rxn. prosthetic dev., implant, & graft urinary sys.",
   "T831", "Mech. complicat. oth. urinary devs. & implants"
 )
 
@@ -49,13 +49,13 @@ ip_dat <- ip_dat |>
 ```{r, react-tbl-ed, echo=FALSE}
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for postoperative problems")
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "NA")
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for postoperative problems")
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Table 22: Inpatient diagnoses for postoperative problems")
 ```
 
 ```{r, google-fonts, echo=FALSE}

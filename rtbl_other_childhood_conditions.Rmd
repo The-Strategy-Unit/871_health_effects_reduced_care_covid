@@ -34,13 +34,13 @@ ip_dat <- ip_grp |>
 ```{r, react-tbl-ed, echo=FALSE}
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for other childhood conditions")
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "Table 5: ED diagnoses for other childhood conditions")
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for other childhood conditions")
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "NA")
 ```
 
 ```{r, google-fonts, echo=FALSE}
