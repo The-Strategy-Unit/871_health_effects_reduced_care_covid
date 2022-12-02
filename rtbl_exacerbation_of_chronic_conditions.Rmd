@@ -20,13 +20,13 @@ ip_grp <- readRDS(here("data", "grouped_ip_diags.rds"))
 
 # ED
 ed_dat <- ed_grp |>
-  filter(grpnm == "Exacerbation of chronic condition") |> 
+  filter(grpnm == "Exacerbation of chronic conditions") |> 
   select(diagnm, p2, u) |>
   arrange(desc(u))
 
 # inpatient
 ip_dat <- ip_grp |>
-  filter(grpnm == "Exacerbation of chronic condition") |> 
+  filter(grpnm == "Exacerbation of chronic conditions") |> 
   select(diagnm, icd10, p2, u) |>
   arrange(desc(u))
 
@@ -61,13 +61,13 @@ ip_dat <- ip_dat |>
 ```{r, react-tbl-ed, echo=FALSE}
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for exacerbation of chronic condition")
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "Table 8: ED diagnoses linked to exacerbation or complication of chronic conditions")
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for exacerbation of chronic condition")
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Table 9: Inpatient diagnoses linked to exacerbation or complication of chronic conditions")
 ```
 
 ```{r, google-fonts, echo=FALSE}
