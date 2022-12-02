@@ -4,7 +4,7 @@
 
 # README----
 # select a sample of providers that code ED activity above a threshold
-# use this sample for all analyses of changes in diagnosis patterns;
+# use this sample for all analyses of changes in diagnosis patterns
 # only use the full population of ED providers for initial analysis of trends
 
 
@@ -20,7 +20,7 @@ source(here("R", "fx_utilities.R"))
 
 
 # parameters----
-code_th <- .8  # coding threshold
+code_th <- .8 # coding threshold
 
 
 
@@ -68,7 +68,10 @@ ed_dat |>
   scale_y_continuous()
 
 # using procode (3 characters) there are 143 providers in the full sample
-ed_dat |> select(procd) |> distinct() |> tally()
+ed_dat |>
+  select(procd) |>
+  distinct() |>
+  tally()
 
 
 
@@ -129,12 +132,11 @@ ed_dat |>
   filter(!is.na(tmper)) |>
   mutate(thold = ifelse(procd %in% procd_th_plus, "above_th", "below_th")) |>
   group_by(tmper, thold) |>
-  summarise(n_visits = sum(n_visits)) |> 
+  summarise(n_visits = sum(n_visits)) |>
   mutate(share = n_visits / sum(n_visits))
 
 
 
 
 # 5 save----
-saveRDS(procd_th_plus, here("data", "sample_provs_code_above_threshold.rds"))
-
+saveRDS(procd_th_plus, here("data", "sample_providers_code_above_threshold.rds"))
