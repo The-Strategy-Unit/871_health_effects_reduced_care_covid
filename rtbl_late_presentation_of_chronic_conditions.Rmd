@@ -20,29 +20,21 @@ ip_grp <- readRDS(here("data", "grouped_ip_diags.rds"))
 
 # ED
 ed_dat <- ed_grp |>
-  filter(grpnm == "Late presentation of chronic condition") |> 
+  filter(grpnm == "Late presentation of chronic conditions") |> 
   select(diagnm, p2, u) |>
   arrange(desc(u))
 
 # inpatient
 ip_dat <- ip_grp |>
-  filter(grpnm == "Late presentation of chronic condition") |> 
+  filter(grpnm == "Late presentation of chronic conditions") |> 
   select(diagnm, icd10, p2, u) |>
   arrange(desc(u))
 
 short_nms <- tribble(
   ~ icd10, ~ shortnm,
-  "J210", "Acute bronchiolitis due to RSV",
-  "J121", "RSV pneumonia",
-  "J211", "Acute bronchiolitis hu. metapneumovirus",
-  "B348", "Other viral infections, unspec. site",
-  "J123", "Human metapneumovirus pneumonia",
-  "B341", "Entovirus infection, unspec. site",
-  "J988", "Other spec. respiratory disorders",
-  "J218", "Acute bronchiolitis other organisms",
-  "J219", "Acute bronchiolitis, unspec.",
-  "J122", "Parainfluenza virus pneumonia",
-  "B000", "Eczema herpeticum"
+  "D500", "Iron def. anemia second. to bld loss chronic",
+  "R935", "Abnormal finding diagn. imag. abdo. region",
+  "E878", "Oth. disorders electrolyte & fluid balance nec"
 )
 
 ip_dat <- ip_dat |> 
@@ -55,13 +47,13 @@ ip_dat <- ip_dat |>
 ```{r, react-tbl-ed, echo=FALSE}
 tbl <- build_react_tbl(ed_dat, units = "Visits", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "ED diagnoses for late presentation of chronic condition")
+react_tbl_div(tbl, selector = "rtbl-grp-ed", title = "Table 6: ED diagnoses linked to late presentation of chronic conditions")
 ```
 
 ```{r, react-tbl-ip, echo=FALSE}
 tbl <- build_react_tbl(ip_dat, units = "Admis.", colwidth = c(240, 200, 200))
 
-react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Inpatient diagnoses for late presentation of chronic condition")
+react_tbl_div(tbl, selector = "rtbl-grp-ip", title = "Table 7: Inpatient diagnoses linked to late presentation of chronic conditions")
 ```
 
 ```{r, google-fonts, echo=FALSE}
