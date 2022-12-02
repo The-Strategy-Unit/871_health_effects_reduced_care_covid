@@ -73,6 +73,7 @@ DECLARE @StartWk INT,
 
 SET @StartWk = 25;
 SET @EndWk = 43;
+
 -- eating disorders
 --SET @DiagCodes = '72366004'
 -- closed fracture of nasal bones

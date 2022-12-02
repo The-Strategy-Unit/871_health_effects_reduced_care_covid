@@ -18,8 +18,8 @@ GO
 CREATE VIEW [dbo].[v_ip_871] AS
 
 SELECT
-	YEAR(DATEADD(day, 26 - DATEPART(ISO_WEEK, Discharge_Date), Discharge_Date)) isoyr,
-	DATEPART(ISO_WEEK, Discharge_Date) isowk,
+	YEAR(DATEADD(day, 26 - DATEPART(ISO_WEEK, Admission_Date), Admission_Date)) isoyr,
+	DATEPART(ISO_WEEK, Admission_Date) isowk,
     CASE
 		WHEN Sex = '1' THEN 'm'
 		WHEN Sex = '2' THEN 'f'
@@ -76,8 +76,8 @@ FROM
 		ON LEFT(tb1.Der_Primary_Diagnosis_Code, 4) = tb4.ICD10_L4_Code
 
 WHERE
-	Discharge_Date >= '2018-01-01'
-	-- AND Discharge_Date <= '2022-03-31'
+	Admission_Date >= '2018-01-01'
+	-- AND Admission_Date <= '2022-03-31'
 	AND APCS_Last_Ep_Ind = '1'
 
 GO
