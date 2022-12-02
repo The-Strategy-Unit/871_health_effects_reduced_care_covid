@@ -33,8 +33,10 @@ clean_raw_dat <- function(df, ed = FALSE) {
       tmper = case_when(tmper == "ref" ~ "p1", TRUE ~ tmper)
     ) %>%
     {
-      if (ed) mutate(., procd = substr(procd, 1, 3)) |> 
-        mutate(diagnm = str_remove(diagnm, "\\s\\(disorder\\)|\\s\\(finding\\)|\\s\\(procedure\\)")) else .
+      if (ed) { 
+        mutate(., procd = substr(procd, 1, 3)) |> 
+        mutate(diagnm = str_remove(diagnm, "\\s\\(disorder\\)|\\s\\(finding\\)|\\s\\(procedure\\)"))
+        } else .
     }
 }
 
