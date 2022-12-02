@@ -38,7 +38,7 @@ build_react_tbl <- function(dat, units = "Admis.", colwidth = c(300, 200, 200)) 
     pagination = FALSE,
     defaultColGroup = colGroup(headerClass = "group-header"),
     defaultColDef = colDef(class = "cell", headerClass = "header"),
-    defaultSorted = list(u = "desc"),
+    # defaultSorted = list(u = "desc"),
     columns = list(
       diagnm = colDef(
         name = "Diagnosis",
@@ -46,7 +46,7 @@ build_react_tbl <- function(dat, units = "Admis.", colwidth = c(300, 200, 200)) 
         width = colwidth[1]
       ),
       p2 = colDef(
-        name = paste(units, "w25\u2013w43 2022"),
+        name = paste(units, "w25\u2013w43 2021"),
         defaultSortOrder = "desc",
         align = "left",
         width = colwidth[2],
@@ -59,15 +59,17 @@ build_react_tbl <- function(dat, units = "Admis.", colwidth = c(300, 200, 200)) 
         },
       ),
       u = colDef(
-        name = "Increase from 2021",
+        name = "Change from 2019 (2=doubling etc.)",
         defaultSortOrder = "desc",
         align = "left",
         width = colwidth[3],
         style = list(fontFamily = "Fira Mono, sans serif", whiteSpace = "pre"),
         cell = function(value) {
           width <- scale_value(value, dat = dat)
-          value <- sprintf("%.3g", value)
+          value <- formatC(value, format = "g", digits = 3, flag = "#")
           value <- format(value, width = 4, justify = "right")
+          value <- replace(value, which(value == "999."), "Inf ")
+          value <- replace(value, which(value == "100."), "100 ")
           bar_chart(value, width = width, fill = pal[3], background = "#e1e1e1")
         }
       )
