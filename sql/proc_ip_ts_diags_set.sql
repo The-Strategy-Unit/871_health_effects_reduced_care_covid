@@ -27,8 +27,8 @@ SELECT
 		WHEN isoyr = 2021 AND isowk >= @StartWk AND isowk <= @EndWk THEN 'p2'
 		ELSE 'NA'
 	END tmper,
-	stpcode,
-	stpname,
+	--stpcode,
+	--stpname,
 	sex,
 	age,
 	admigrp,
@@ -61,8 +61,8 @@ GROUP BY
 		WHEN isoyr = 2021 AND isowk >= @StartWk AND isowk <= @EndWk THEN 'p2'
 		ELSE 'NA'
 	END,
-	stpcode,
-	stpname,
+	--stpcode,
+	--stpname,
 	sex,
 	age,
 	admigrp,
