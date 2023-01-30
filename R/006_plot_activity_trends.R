@@ -474,6 +474,7 @@ panel <- trend_ordelec +
   theme(plot.margin = margin(r = 4, unit = "mm")) +
   trend_gp
 
+ggsave(here("figures", "deck_ordelec.png"), trend_ordelec, width = 144, height = 110, units = c("mm"))
 ggsave(here("figures", "deck_panel_ordelec_daycase_gp.png"), panel, width = 260, height = 110, units = c("mm"))
 
 panel <- trend_ed +
@@ -484,10 +485,3 @@ panel <- trend_ed +
 
 ggsave(here("figures", "deck_panel_ed_admis_beds.png"), panel, width = 260, height = 110, units = c("mm"))
 
-ed_p <- ed_block +
-  labs(subtitle = "Weekly ED visits (thousands)")
-ggsave(here("figures", "deck_ed_compared.png"), ed_p, width = 144, height = 100, units = c("mm"))
-
-ip_p <- ip_block +
-  labs(subtitle = "Weekly emergency admissions (thousands)")
-ggsave(here("figures", "deck_admis_compared.png"), ip_p, width = 144, height = 100, units = c("mm"))
