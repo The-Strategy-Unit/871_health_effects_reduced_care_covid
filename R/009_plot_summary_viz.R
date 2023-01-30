@@ -130,17 +130,23 @@ ggsave(here("figures", "group_summary_viz.png"), p1, width = 160, height = 150, 
 
 
 # plot slide-deck----
-p2 <- ggplot(aes(x = u - 1, y = grpnm_lab, group = 1), data = plot_dat) +
+p2 <-  ggplot(aes(x = u - 1, y = grpnm_lab, group = 1), data = plot_dat) +
   geom_vline(xintercept = 0, size = .5, color = "#d3d3d3") +
   geom_col(width = .8, show.legend = FALSE, fill = pal[3], color = pal[3]) +
   facet_wrap(vars(pod), labeller = labeller(pod = pod_label)) +
   scale_x_continuous(name = NULL, expand = c(0, 0), breaks = 0:2, limits = c(0, 2.6), labels = function(x) str_c("x", x + 1)) +
   scale_y_discrete(name = NULL, labels = function(x) str_wrap(x, width = 24)) +
-  labs(subtitle = "scale of increase, x2 = a doubling") +
+  geom_text(data = ann_text, aes(x = x,  y = grpnm_lab, label = txt), colour = "#686f73", size = .36 * 8, family = "Fira Sans") +
+  labs(
+    caption = str_c(
+      str_wrap("Note: No ED visits included in postoperative problems group; no admissions incl. in other childhood conditions, physical injuries, or eye conditions and injuries groups", width = 110),
+      "\nSource: Strategy Unit analysis; SUS+, National Commissioning Data Repository."),
+   subtitle = "scale of increase, x2 = a doubling"
+  ) +
   theme(
-    strip.background = element_rect(fill = NA, colour = NA),
+    strip.background = element_rect(fill = "#f9f8f2", colour = "#f9f8f2"),
     strip.text = element_text(size = rel(1), hjust = 0, vjust = .5, margin = margin(t = 4, b = 4, l = 2), family = "Fira Sans Medium"),
-    axis.text.y = element_text(hjust = 0, size = rel(.9), family = "Fira Sans Medium"),
+    axis.text.y = element_text(hjust = 0, size = rel(.9), family = "Fira Sans"),
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(size = .2, color = "#d3d3d3"),
     plot.subtitle = element_text(size = rel(.9)),
